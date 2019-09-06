@@ -19,14 +19,7 @@
 
 package chore_assigner;
 
-import java.io.Serializable;
-
-public class Chore_Assigner implements Serializable {
-
-	/**
-	 * Default value... no current expectations for expansion or alteration after final version to this class
-	 */
-	private static final long serialVersionUID = 1L;
+public class Chore_Assigner{
 	
 	/**
 	 * Main runner method that reads input from user, i.e., me, and outputs computation
