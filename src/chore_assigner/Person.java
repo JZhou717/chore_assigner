@@ -20,19 +20,31 @@ public class Person implements Serializable {
 	public static final String store_file = "Person.dat";
 	
 	String name;
-	int bathroom_count;
-	int break_count;
-	int kitchen_count;
-	int floors_count;
+	int bathroom_count = 0;
+	int break_count = 0;
+	int kitchen_count = 0;
+	int floors_count = 0;
 	Chore most_recent;
 	
 	/**
-	 * Reads this Person's serialized data back into it
+	 * Constructor that creates a Person with the given name
+	 * @param string
 	 */
-	public void read_serialized() {
-		// TODO Auto-generated method stub
-		
+	public Person(String string) {
+		name = string;
 	}
 	
+	/**
+	 * Prints the person's data fields
+	 */
+	public void print() {
+		System.out.println(name);
+		System.out.println("bathroom_count: " + bathroom_count);
+		System.out.println("break_count: " + break_count);
+		System.out.println("kitchen_count: " + kitchen_count);
+		System.out.println("floors_count: " + floors_count);
+		System.out.println("most_recent: " + most_recent);
+		
+	}
 	
 }

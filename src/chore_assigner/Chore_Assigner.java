@@ -26,6 +26,7 @@ package chore_assigner;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -53,21 +54,17 @@ public class Chore_Assigner{
 	 */
 	private ArrayList<Person> people_list;
 	
-	
-	
-	
 	/**
-	 * Generates a new list of Person object for each housemate and saves it to the people_list field. Should only be called once on first application run
+	 * Creates a new Chore Assigner that initializes an arraylist of all house members
 	 */
-	private static void new_people_list() {
-		
-		
-		
-		
-		
-		
-		
-		
+	public Chore_Assigner() {
+		people_list = new ArrayList<Person>();
+		people_list.add(new Person("Jake"));
+		people_list.add(new Person("Nick"));
+		people_list.add(new Person("Olivia"));
+		people_list.add(new Person("Shreya"));
+		people_list.add(new Person("Sidd"));
+		people_list.add(new Person("Tom"));
 	}
 	
 	/**
@@ -90,27 +87,60 @@ public class Chore_Assigner{
 			return ret;
 			
 		}
+		catch(FileNotFoundException e) {
+			File file = new File(store_dir + File.separator + store_file);
+		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
 		
 		//If there is no serialized list or if something went wrong
-		System.out.println("TESTING: NO SERIALIZED LIST. CREATING A NEW LIST");
-		new_people_list();
+		System.out.println("TESTING: NO SERIALIZED LIST. CREATING A NEW BLANK LIST");
 		return ret;
 		
 	}
 	
 	/**
-	 * Serializes this class that has a list of housemates, each of which are a Serializable Person class
+	 * Serializes this class that has a list of housemates, each of which is a Serializable Person class
 	 * @throws IOException
 	 */
-	void serialize() throws IOException {
+	void serialize() {
 		
-		ObjectOutputStream oos = new ObjectOutputStream(
-			new FileOutputStream(store_dir + File.separator + store_file));
-		oos.writeObject(this);
-		oos.close();
+		try {
+			ObjectOutputStream oos = new ObjectOutputStream(
+				new FileOutputStream(store_dir + File.separator + store_file));
+			oos.writeObject(this);
+			oos.close();
+		}
+		catch(FileNotFoundException e) {
+			File file = new File(store_dir + File.separator + store_file);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	/**
+	 * Prints out each Person and their fields
+	 */
+	public void show_data() {
+		System.out.println("");
+		for(Person p: people_list) {
+			p.print();
+			System.out.println();
+		}
+		System.out.println();
+		
+	}
+
+	public void edit_data() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void generate_data() {
+		// TODO Auto-generated method stub
 		
 	}
 	

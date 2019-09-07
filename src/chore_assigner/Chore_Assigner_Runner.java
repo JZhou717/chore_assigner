@@ -1,6 +1,7 @@
 package chore_assigner;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * A simple application that assigns chores to my housemates and me for the year. It follows some simple rules and tracks how many times each person has done one of the 4 categories of chores. The data is then serialized so that I do not have to input data every time I want to make an adjustment to chore assignments.
@@ -39,6 +40,33 @@ public class Chore_Assigner_Runner {
 			e.printStackTrace();
 		}
 		
+		//Input reader
+		Scanner in = new Scanner(System.in);
+		String input;
+		
+		while(true) {
+			System.out.println("Which of the following operations would you like to preform:");
+			System.out.println("\"view\" data");
+			System.out.println("\"edit\" data");
+			System.out.println("\"generate\" chores");
+			System.out.println("\"quit\" application");
+			
+			input = in.next().toLowerCase();
+			
+			switch(input) {
+				case "view":
+					Assigner.show_data(); break;
+				case "edit":
+					Assigner.edit_data(); break;
+				case "generate":
+					Assigner.generate_data(); break;
+				case "quit":
+					in.close(); System.exit(0); break;
+				default:
+					System.out.println("Invalid input. Please try again.\n");
+			}
+		}
+		
 	}
 
 	/**
@@ -48,6 +76,9 @@ public class Chore_Assigner_Runner {
 	 */
 	private static void read_serialized() throws ClassNotFoundException, IOException {
 		Assigner = (Chore_Assigner) Chore_Assigner.read_serialized();
+		if(Assigner == null) {
+			Assigner = new Chore_Assigner();
+		}
 		
 	}
 	
