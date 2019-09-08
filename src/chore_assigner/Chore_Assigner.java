@@ -14,8 +14,6 @@
  * 3. Edit people data 
  * 
  * NEED TO IMPLEMENT
- * ~ Serialization
- * ~ IO messages
  * ~ Assignment algorithm
  */
 
@@ -24,19 +22,25 @@
 
 package chore_assigner;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Chore_Assigner{
+public class Chore_Assigner implements Serializable {
 	
 	/**
-	 * A useful enum when referrring to a specific chore
+	 * Default Value
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * A useful enum when referring to a specific chore
 	 */
 	public static enum Chore {
 		BATHROOM, BREAK, KITCHEN, FLOOR
@@ -75,8 +79,12 @@ public class Chore_Assigner{
 		Chore_Assigner ret = new Chore_Assigner();
 		
 		try {
+			File file = new File(store_dir + File.separator + store_file);
+			file.getParentFile().mkdirs();
+			file.createNewFile();
+			
 			ObjectInputStream ois = new ObjectInputStream(
-				new FileInputStream(store_dir + File.separator + store_file));
+				new FileInputStream(file));
 			
 			Chore_Assigner serialized_assigner = (Chore_Assigner) ois.readObject();
 			
@@ -87,8 +95,8 @@ public class Chore_Assigner{
 			return ret;
 			
 		}
-		catch(FileNotFoundException e) {
-			File file = new File(store_dir + File.separator + store_file);
+		catch(EOFException e) {
+			//No serialized obj from last session
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -107,13 +115,14 @@ public class Chore_Assigner{
 	void serialize() {
 		
 		try {
+			File file = new File(store_dir + File.separator + store_file);
+			file.getParentFile().mkdirs();
+			file.createNewFile();
+			
 			ObjectOutputStream oos = new ObjectOutputStream(
-				new FileOutputStream(store_dir + File.separator + store_file));
+				new FileOutputStream(file));
 			oos.writeObject(this);
 			oos.close();
-		}
-		catch(FileNotFoundException e) {
-			File file = new File(store_dir + File.separator + store_file);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -141,6 +150,29 @@ public class Chore_Assigner{
 
 	public void generate_data() {
 		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * Updates an existing person's data
+	 * @param person an int 0-5 inclusive that represents a housemate based on the order they were added to the people_list (also alphabetical with "Jake" as 0 and Tom as "5")
+	 * @param bathroom_count
+	 * @param break_count
+	 * @param kitchen_count
+	 * @param floor_count
+	 * @param recent
+	 */
+	public void update_person(int person, int bathroom_count, int break_count, int kitchen_count, int floor_count,
+			Chore recent) {
+		Person temp = people_list.get(person);
+		
+		temp.bathroom_count = bathroom_count;
+		temp.break_count = break_count;
+		temp.kitchen_count = kitchen_count;
+		temp.floors_count = floor_count;
+		temp.most_recent = recent;
+		
+		show_data();
 		
 	}
 	

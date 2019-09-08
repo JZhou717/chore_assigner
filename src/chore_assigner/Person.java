@@ -14,10 +14,6 @@ public class Person implements Serializable {
 	 * Default value... no current expectations for expansion or alteration after final version to this class
 	 */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * File to store this class's data
-	 */
-	public static final String store_file = "Person.dat";
 	
 	String name;
 	int bathroom_count = 0;
