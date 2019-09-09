@@ -4,22 +4,6 @@
  * This class offers the abilities to review the user data for # times of each chore done per person, compute future chore assignments, or to edit existing data
  */
 
-
-
-
-/*
- * WILL have 3 features
- * 1. View current data, i.e., people and their amounts per chore
- * 2. Compute future weeks of chores
- * 3. Edit people data 
- * 
- * NEED TO IMPLEMENT
- * ~ Assignment algorithm
- */
-
-
-
-
 package chore_assigner;
 
 import java.io.EOFException;
@@ -96,14 +80,14 @@ public class Chore_Assigner implements Serializable {
 			
 		}
 		catch(EOFException e) {
-			//No serialized obj from last session
+			System.out.println("TESTING: NO SERIALIZED LIST. CREATING A NEW BLANK LIST");
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-		//If there is no serialized list or if something went wrong
-		System.out.println("TESTING: NO SERIALIZED LIST. CREATING A NEW BLANK LIST");
+		//If something went wrong
+		System.out.println("TESTING. SOMETHING WRONG.");
 		return ret;
 		
 	}
@@ -143,16 +127,6 @@ public class Chore_Assigner implements Serializable {
 		
 	}
 
-	public void edit_data() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void generate_data() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	/**
 	 * Updates an existing person's data
 	 * @param person an int 0-5 inclusive that represents a housemate based on the order they were added to the people_list (also alphabetical with "Jake" as 0 and Tom as "5")
@@ -174,6 +148,30 @@ public class Chore_Assigner implements Serializable {
 		
 		show_data();
 		
+	}
+
+	/**
+	 * Returns reference to Person obj based on the name given
+	 * @param name name of the person to find from people_list
+	 * @return Person obj with matching name or null if no match
+	 */
+	public Person find_person(String name) {
+		switch(name) {
+			case "jake":
+				return people_list.get(0);
+			case "nick":
+				return people_list.get(1);
+			case "olivia":
+				return people_list.get(2);
+			case "shreya":
+				return people_list.get(3);
+			case "sidd":
+				return people_list.get(4);
+			case "tom":
+				return people_list.get(5);
+			default:
+				return null;
+		}
 	}
 	
 }

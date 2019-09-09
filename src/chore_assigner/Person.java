@@ -43,4 +43,25 @@ public class Person implements Serializable {
 		
 	}
 	
+	/**
+	 * Two people are equal if they have the same name
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if(o == null || 
+				(!(o instanceof Person))) {
+			return false;
+		}
+		
+		Person p = (Person) o;
+		
+		if(p.name.equalsIgnoreCase(this.name)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+	}
+	
 }
